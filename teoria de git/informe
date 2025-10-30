@@ -1,5 +1,8 @@
 # Teoría y Uso de Git
 
+**Autor:** Jhonny Equize Silvestre  
+**Fecha:** 29 de octubre de 2025 
+
 ## 1. Introducción
 Git es un **sistema de control de versiones distribuido**, diseñado para registrar los cambios realizados en archivos (especialmente código fuente) a lo largo del tiempo.  
 Fue creado por **Linus Torvalds en 2005** para el desarrollo del kernel de Linux, con el objetivo de manejar proyectos grandes de manera rápida y eficiente.
@@ -144,5 +147,6 @@ Se trabaja en equipo en un mismo código o documento.
 Se desea mantener un registro histórico de los cambios.
 
 Se requiere probar nuevas ideas sin afectar el trabajo principal.
+
 
 Se necesita colaboración remota o integración continua (CI/CD).
