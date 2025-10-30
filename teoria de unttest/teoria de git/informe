@@ -1,0 +1,148 @@
+# Teoría y Uso de Git
+
+## 1. Introducción
+Git es un **sistema de control de versiones distribuido**, diseñado para registrar los cambios realizados en archivos (especialmente código fuente) a lo largo del tiempo.  
+Fue creado por **Linus Torvalds en 2005** para el desarrollo del kernel de Linux, con el objetivo de manejar proyectos grandes de manera rápida y eficiente.
+
+---
+
+## 2. Teoría de Git
+
+### ¿Qué es Git?
+Git permite a múltiples desarrolladores trabajar sobre el mismo proyecto **sin sobrescribir el trabajo de otros**.  
+Cada usuario tiene una copia completa del repositorio en su máquina local, lo que permite trabajar **sin conexión** y luego sincronizar los cambios con un repositorio remoto.
+
+### Conceptos Clave
+- **Repositorio (repo):** Es el espacio donde se guarda el proyecto y su historial de cambios.  
+- **Commit:** Es un punto de guardado en el tiempo que almacena los cambios realizados.  
+- **Branch (rama):** Permite desarrollar nuevas funcionalidades o pruebas sin afectar la rama principal.  
+- **Merge:** Combina los cambios de una rama con otra.  
+- **Remote:** Repositorio ubicado en un servidor (por ejemplo, GitHub, GitLab o Bitbucket).  
+- **Clone / Pull / Push:**  
+  - `clone`: Copia un repositorio remoto.  
+  - `pull`: Descarga cambios desde el servidor.  
+  - `push`: Sube cambios locales al servidor.  
+
+---
+
+##  3. ¿Por Qué Usar Git?
+
+- **Historial completo:** Permite ver qué cambios se realizaron, cuándo y por quién.  
+- **Trabajo colaborativo:** Múltiples personas pueden trabajar en paralelo.  
+- **Seguridad:** Cada cambio queda registrado, lo que facilita revertir errores.  
+- **Integración con plataformas:** Git se integra con servicios como GitHub, GitLab o Bitbucket para facilitar la colaboración.  
+- **Eficiencia:** Es rápido, incluso en proyectos grandes.  
+
+---
+
+##  4. ¿Cómo Usar Git?
+
+### Instalación
+- **Windows:** Descargar desde [https://git-scm.com/](https://git-scm.com/)  
+- **Linux/Mac:** Instalar con el comando:
+  ```bash
+  sudo apt install git
+
+### Configuración inicial
+
+``` 
+git config --global user.name "Tu Nombre"
+git config --global user.email "tuemail@example.com"
+```
+#### Explicación:
+
+* git config → Es el comando que permite configurar opciones globales o locales en Git.
+
+* global → Indica que la configuración se aplicará a todos los repositorios del usuario en el sistema.
+
+* user.name → Define el nombre que se mostrará como autor de los commits.
+
+* user.email → Define el correo electrónico asociado a los commits (debe coincidir con el de GitHub si usarás repositorios remotos).
+
+### Crear un nuevo repositorio
+
+```
+git init
+```
+#### Explicación:
+
+* Crea una carpeta oculta llamada .git dentro de tu proyecto.
+
+* Esta carpeta contiene toda la información del historial, las ramas y la configuración del repositorio.
+
+* A partir de este momento, Git comenzará a rastrear los archivos del directorio.
+
+### Agregar y confirmar cambios
+
+ ```
+git add .
+git commit -m "Descripción de los cambios"
+```
+#### Explicación:
+
+* git add . → Agrega todos los archivos modificados o nuevos al área de preparación.
+También puedes agregar un archivo específico:
+
+### Conectar con un repositorio remoto
+
+```
+git remote add origin https://github.com/usuario/repositorio.git
+git push -u origin main
+```
+#### Explicación:
+
+* git remote add origin → Asocia tu repositorio local con un remoto, al que llamas “origin” (nombre por defecto).
+
+* git push -u origin main → Envía (sube) los commits locales a la rama main del repositorio remoto.
+La opción -u guarda la relación entre la rama local y la remota, para que luego puedas usar simplemente:
+
+### Actualizar el repositorio local
+
+```
+git pull origin main
+```
+#### Explicación:
+
+* git pull → Descarga los cambios desde el servidor remoto y los combina automáticamente con tu rama local.
+
+* origin → Es el nombre del repositorio remoto.
+
+* main → Es la rama principal que deseas actualizar.
+
+### Crear y cambiar de rama
+
+```
+git branch nueva-rama
+git checkout nueva-rama
+```
+
+#### Explicación:
+
+* git branch nueva-rama → Crea una nueva rama llamada “nueva-rama”.
+
+* git checkout nueva-rama → Cambia la vista actual del proyecto a esa rama.
+Ahora todos los cambios se guardarán ahí, sin modificar la rama principal (main).
+
+### Combinar ramas
+
+```
+git merge nueva-rama
+```
+
+#### Explicación:
+
+* git merge → Fusiona los cambios de una rama (por ejemplo, nueva-rama) en la rama actual (por ejemplo, main).
+
+* Si hay conflictos (dos personas editaron el mismo archivo), Git pedirá que los resuelvas manualmente antes de completar la fusión.
+
+## 5. ¿Cuándo Usar Git?
+
+Git debe usarse en cualquier proyecto que requiera control de versiones, especialmente cuando:
+
+Se trabaja en equipo en un mismo código o documento.
+
+Se desea mantener un registro histórico de los cambios.
+
+Se requiere probar nuevas ideas sin afectar el trabajo principal.
+
+Se necesita colaboración remota o integración continua (CI/CD).

@@ -1,0 +1,214 @@
+#  Informe: Teoría y Uso de Poetry en Python  
+
+**Autor:** Jhonny Equize Silvestre  
+**Fecha:** 29 de octubre de 2025  
+
+---
+
+##  1. Introducción
+
+**Poetry** es una herramienta moderna para la **gestión de dependencias y empaquetado en proyectos de Python**.  
+Permite manejar librerías externas, crear entornos virtuales, definir versiones específicas y publicar paquetes en PyPI de manera sencilla y controlada.  
+
+Su objetivo principal es reemplazar el uso combinado de `pip`, `pipenv` y `setup.py`, ofreciendo una **solución unificada** para el ciclo de vida completo de un proyecto en Python.
+
+---
+
+##  2. Teoría de Poetry
+
+###  ¿Qué es Poetry?
+
+Poetry es un **gestor de dependencias y construcción de proyectos**.  
+Controla qué librerías necesita un proyecto, instala las versiones correctas y genera archivos que garantizan la **reproducibilidad** del entorno en cualquier equipo.
+
+En lugar de tener múltiples archivos de configuración (`requirements.txt`, `setup.py`, `MANIFEST.in`), Poetry utiliza un solo archivo principal:  
+```
+pyproject.toml
+```
+
+### Principales características
+
+* Gestión automática de dependencias: Instala, actualiza y bloquea versiones compatibles.
+
+* Entornos virtuales automáticos: Crea y usa entornos virtuales sin necesidad de venv o virtualenv.
+
+* Empaquetado y publicación: Permite crear paquetes .whl o .tar.gz y publicarlos fácilmente en PyPI.
+
+* Archivo de bloqueo (poetry.lock): Asegura que todas las máquinas usen las mismas versiones de librerías.
+
+* Compatibilidad: Basado en el estándar PEP 518, compatible con herramientas modernas de Python.
+
+## 3. Cómo Usar Poetry
+
+**Instalación**
+
+* En Windows, macOS o Linux:
+
+```
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+* O bien con pip:
+
+```
+pip install poetry
+```
+
+
+* Verifica la instalación con:
+
+```
+poetry --version
+```
+
+#### Crear un nuevo proyecto
+
+```
+poetry new nombre_proyecto
+```
+
+##### Esto crea una estructura básica:
+
+nombre_proyecto/
+
+```
+├── pyproject.toml
+├── README.md
+├── nombre_proyecto/
+│   └── __init__.py
+└── tests/
+```
+
+#### Agregar dependencias
+
+```
+poetry add nombre_paquete
+```
+
+Ejemplo:
+
+```
+poetry add requests
+```
+
+
+Esto actualiza pyproject.toml y poetry.lock.
+
+#### Para dependencias de desarrollo (solo necesarias al programar):
+
+```
+poetry add --dev pytest
+```
+
+#### Instalar dependencias
+
+Si ya tienes un proyecto con pyproject.toml, puedes instalar todas las dependencias con:
+
+```
+poetry install
+```
+
+Esto también crea el entorno virtual automáticamente.
+
+#### Ejecutar comandos dentro del entorno virtual
+
+Puedes ejecutar tu código o comandos directamente en el entorno de Poetry:
+
+```
+poetry run python main.py
+poetry run pytest
+```
+
+
+O abrir una consola dentro del entorno virtual:
+
+```
+poetry shell
+```
+
+#### Actualizar dependencias
+
+```
+poetry update
+```
+
+Actualiza todas las librerías a las últimas versiones compatibles según el archivo pyproject.toml.
+
+#### Publicar un paquete en PyPI
+
+Compila tu paquete:
+
+```
+poetry build
+```
+
+Publícalo:
+
+```
+poetry publish
+```
+
+Puedes incluir tus credenciales de PyPI o usar un token de autenticación.
+
+## 4. ¿Por Qué Usar Poetry?
+
+Simplicidad: Centraliza toda la gestión del proyecto en un solo archivo (pyproject.toml).
+
+ Reproducibilidad: El archivo poetry.lock garantiza que todos los desarrolladores trabajen con las mismas versiones.
+
+ Automatización: Crea entornos virtuales automáticamente.
+
+ Estandarización: Cumple con los estándares modernos de Python (PEP 517/518).
+
+ Publicación profesional: Facilita la creación y publicación de paquetes Python.
+
+ Manejo eficiente: Permite manejar proyectos grandes con dependencias complejas sin conflictos de versiones.
+
+## 5. ¿Cuándo Usar Poetry?
+
+Poetry es ideal en los siguientes casos:
+
+🔹 Cuando inicias un nuevo proyecto en Python y quieres mantenerlo bien estructurado.
+
+🔹 Si necesitas un control preciso sobre versiones de dependencias.
+
+🔹 Cuando colaboras con otros desarrolladores y requieres un entorno reproducible.
+
+🔹 Si planeas publicar tu librería o paquete en PyPI.
+
+🔹 Para reemplazar pip + virtualenv + setup.py con una herramienta más integrada y moderna.
+
+## 6. Ejemplo Práctico
+
+Creación y configuración de un proyecto:
+# Crear un nuevo proyecto
+
+poetry new calculadora
+
+# Entrar al proyecto
+
+cd calculadora
+
+# Agregar dependencias
+
+poetry add numpy
+
+# Crear entorno virtual e instalar todo
+
+poetry install
+
+# Ejecutar el proyecto
+
+poetry run python calculadora/main.py
+
+
+Estructura final:
+
+```
+calculadora/
+├── pyproject.toml
+├── poetry.lock
+├── calculadora/
+│   └── main.py
+└── tests/
+```
