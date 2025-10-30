@@ -1,0 +1,243 @@
+#  Teoría y Uso de `unittest` en Python
+
+**Autor:** Jhonny Equize Silvestre  
+**Fecha:** 29 de octubre de 2025  
+
+---
+
+##  1. Introducción
+
+En el desarrollo de software, las **pruebas automatizadas** son fundamentales para garantizar que el código funcione correctamente incluso después de realizar cambios.  
+
+En Python, el módulo **`unittest`** (incluido en la biblioteca estándar) permite crear, organizar y ejecutar pruebas automáticas de forma estructurada y repetible, asegurando la **calidad y confiabilidad** del software.
+
+---
+
+##  2. Teoría de `unittest`
+
+###  ¿Qué es `unittest`? 
+
+`unittest` es el **marco de pruebas (testing framework)** nativo de Python.  
+Proporciona herramientas para:
+- Escribir casos de prueba (test cases).
+- Agruparlos en conjuntos (test suites).
+- Ejecutarlos automáticamente.
+- Verificar resultados mediante **aserciones** (asserts).
+
+Este módulo sigue el patrón **xUnit**, que también utilizan otros lenguajes (como JUnit en Java o NUnit en .NET).
+
+---
+
+###  Conceptos Clave
+
+ **Concepto** : Descripción 
+
+ **Test Case** : Unidad más pequeña de prueba. Comprueba una funcionalidad específica.
+
+ **Test Suite** :Conjunto de casos de prueba relacionados.
+
+ **Test Runner** :Encargado de ejecutar las pruebas y mostrar los resultados.
+
+ **Assertions (Aserciones)** :Métodos que verifican si un resultado es el esperado.
+
+Ejemplos de métodos de aserción:
+- `assertEqual(a, b)` → Comprueba si `a == b`.  
+- `assertTrue(x)` → Comprueba si `x` es verdadero.  
+- `assertFalse(x)` → Comprueba si `x` es falso.  
+- `assertRaises(Error)` → Verifica si se lanza una excepción esperada.  
+
+---
+
+##  3. Cómo Usar `unittest`
+
+### Crear una prueba básica
+
+
+Archivo: `test_calculadora.py`
+
+```python
+import unittest
+from calculadora import sumar
+
+class TestCalculadora(unittest.TestCase):
+    def test_suma(self):
+        resultado = sumar(2, 3)
+        self.assertEqual(resultado, 5)
+
+if __name__ == '__main__':
+    unittest.main()
+
+```
+
+Explicación:
+
+* import unittest → Importa el módulo de pruebas.
+
+* class TestCalculadora(unittest.TestCase) → Define una clase de pruebas que hereda de unittest.TestCase.
+
+* def test_suma(self) → Los métodos que comienzan con test_ se reconocen como casos de prueba.
+
+* self.assertEqual(...) → Comprueba si el resultado de la función es el esperado.
+
+* unittest.main() → Ejecuta automáticamente todas las pruebas del archivo.
+
+### ejecutar pruebas
+
+Desde la terminal:
+
+```
+python -m unittest test_calculadora.py
+```
+
+
+O bien, para ejecutar todas las pruebas en un proyecto:
+
+```
+python -m unittest discover
+```
+
+### ejemplo con varias pruebas
+
+Archivo: test_operaciones.py
+
+```
+import unittest
+from operaciones import sumar, restar, dividir
+
+class TestOperaciones(unittest.TestCase):
+    def test_sumar(self):
+        self.assertEqual(sumar(2, 3), 5)
+
+    def test_restar(self):
+        self.assertEqual(restar(5, 3), 2)
+
+    def test_dividir(self):
+        self.assertAlmostEqual(dividir(10, 2), 5)
+
+    def test_division_por_cero(self):
+        with self.assertRaises(ZeroDivisionError):
+            dividir(10, 0)
+
+if __name__ == '__main__':
+    unittest.main()
+ ```
+
+
+### metodos de operaciones de limpieza
+
+unittest permite definir métodos especiales para preparar y limpiar el entorno antes o después de las pruebas.
+
+import unittest
+
+```
+class TestEjemplo(unittest.TestCase):
+    def setUp(self):
+        print("Preparando entorno antes de cada prueba")
+
+    def tearDown(self):
+        print("Limpiando entorno después de cada prueba")
+
+    def test_ejemplo(self):
+        self.assertTrue(True)
+```
+
+setUp() → Se ejecuta antes de cada prueba.
+
+tearDown() → Se ejecuta después de cada prueba.
+
+###  Crear un conjunto de pruebas (suite)
+
+Puedes agrupar varias clases de prueba en una sola suite:
+
+```
+import unittest
+from test_operaciones import TestOperaciones
+from test_calculadora import TestCalculadora
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestOperaciones))
+    suite.addTest(unittest.makeSuite(TestCalculadora))
+    return suite
+
+if __name__ == '__main__':
+    runner = unittest.TextTestRunner()
+    runner.run(suite())
+```
+
+## 4.¿Por Qué Usar unittest?
+
+ Evita errores humanos: Las pruebas automáticas detectan fallos que podrían pasar desapercibidos.
+
+ Mantiene la calidad del código: Permite refactorizar o agregar nuevas funciones sin romper funcionalidades existentes.
+
+ Estandarización: unittest está integrado en Python y cumple con convenciones internacionales de testing (xUnit).
+
+ Documentación viva: Las pruebas sirven como ejemplos prácticos de cómo debe comportarse el código.
+
+ Integración continua: Compatible con herramientas como GitHub Actions, Jenkins o GitLab CI/CD.
+
+## 5.¿Cuándo Usar unittest?
+
+🔹 Desde el inicio del desarrollo, siguiendo la metodología TDD (Test Driven Development).
+
+🔹 Antes de hacer grandes cambios o refactorizaciones.
+
+🔹 Al integrar nuevas funcionalidades que puedan afectar el comportamiento previo.
+
+🔹 En cualquier proyecto donde la estabilidad y confiabilidad del software sean esenciales.
+
+🔹 En entornos de producción o proyectos académicos donde se requiere verificar resultados de manera automática.
+
+## 6.Ejemplo Completo
+
+Archivo: calculadora.py
+
+```
+def sumar(a, b):
+    return a + b
+
+def restar(a, b):
+    return a - b
+
+def dividir(a, b):
+    return a / b
+
+```
+
+Archivo: test_calculadora.py
+
+```
+import unittest
+from calculadora import sumar, restar, dividir
+
+class TestCalculadora(unittest.TestCase):
+    def test_sumar(self):
+        self.assertEqual(sumar(2, 3), 5)
+
+    def test_restar(self):
+        self.assertEqual(restar(5, 3), 2)
+
+    def test_dividir(self):
+        self.assertEqual(dividir(10, 2), 5)
+
+    def test_division_por_cero(self):
+        with self.assertRaises(ZeroDivisionError):
+            dividir(10, 0)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+Ejecución:
+
+```
+python -m unittest test_calculadora.py
+```
+
+Salida esperada:
+
+```
+Ran 4 tests in 0.002s
+```
+
